@@ -19,12 +19,14 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
-      
-    - name: Set up PowerShell
-      uses: actions/setup-powershell@v2
+
+    - name: Install Power BI Management Module
+      run: Install-Module -Name MicrosoftPowerBIMgmt -Force -Scope CurrentUser
+      shell: pwsh
 
     - name: Run PowerShell script
       run: |
+        Import-Module MicrosoftPowerBIMgmt
         $param1 = ${{ github.event.inputs.param1 }}
         $param2 = ${{ github.event.inputs.param2 }}
         .\script.ps1 -Param1 $param1 -Param2 $param2
