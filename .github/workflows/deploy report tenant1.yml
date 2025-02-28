@@ -37,9 +37,6 @@ jobs:
         write-host "skip the step"
 
     - name: Run PowerShell script
-      env:
-        PARAM1: ${{ secrets.PARAM1 }}
-        PARAM1: ${{ vars.PARAM1 }}
       run: |
         write-host " ${{ secrets.PARAM1 }}"
         write-host " ${{ vars.PARAM1 }}"
