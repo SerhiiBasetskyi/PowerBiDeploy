@@ -42,7 +42,7 @@ jobs:
       run: |
         $param1 = '${{ matrix.environment.PARAMNEW }}'
         $param2 = $env:PARAMNEW
-        $param3 = '${{ github.event.inputs.environments }}'
+        $param3 = '${{ github.event.inputs.environments.vars.PARAMNEW }}'
         $param4 = '${{ vars.PARAM1 }}' # global var
         .\DeployScript\script.ps1 -Param1 $param1 -Param2 $param2 -Param3 $param3 -Param4 $param4
       shell: pwsh
