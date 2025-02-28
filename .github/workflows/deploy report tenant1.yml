@@ -1,19 +1,23 @@
-name: Run PowerShell Script
+name: Deploy reports
 
 on: 
   workflow_dispatch:
     inputs:
-      param1:
-        description: 'First parameter'
+      report:
+        description: 'Report to deploy'
         required: true
-        default: 'default_value1'
-      param2:
-        description: 'Second parameter'
+        type: choice
+        options:
+          - Report1
+          - Report2
+      environments:
+        description: 'Environments to deploy'
         required: true
-        default: 'default_value2'
+        default: '["Tenant1", "Tenant2"]'
+        type: string
 
 jobs:
-  run-script:
+  prepare-powershell-env:
     runs-on: windows-latest
 
     steps:
@@ -21,13 +25,26 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Install Power BI Management Module
-      run: Install-Module -Name MicrosoftPowerBIMgmt -Force -Scope CurrentUser
+      run: |
+        Install-Module -Name MicrosoftPowerBIMgmt -Force -Scope CurrentUser
+        Import-Module MicrosoftPowerBIMgmt
       shell: pwsh
 
+  
+  deploy:
+    needs: prepare-powershell-env
+    strategy:
+      max-parallel: 1
+      fail-fast: false
+      matrix:
+        environments: ${{ fromJson(inputs.environments) }}
+        
+    environment: ${{ matrix.environment }}
+    steps:
     - name: Run PowerShell script
       run: |
-        Import-Module MicrosoftPowerBIMgmt
-        $param1 = '${{ github.event.inputs.param1 }}'
+        
+        $param1 = $env:PARAM1
         $param2 = '${{ github.event.inputs.param2 }}'
         .\DeployScript\script.ps1 -Param1 $param1 -Param2 $param2
       shell: pwsh
