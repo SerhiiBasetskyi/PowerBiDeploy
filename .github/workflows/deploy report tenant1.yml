@@ -20,19 +20,11 @@ jobs:
   prepare-powershell-env:
     runs-on: windows-latest
 
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
 
-    - name: Install Power BI Management Module
-      run: |
-        Install-Module -Name MicrosoftPowerBIMgmt -Force -Scope CurrentUser
-        Import-Module MicrosoftPowerBIMgmt
-      shell: pwsh
 
   
   deploy:
-    needs: prepare-powershell-env
+    runs-on: windows-latest
     strategy:
       max-parallel: 1
       fail-fast: false
@@ -41,6 +33,14 @@ jobs:
         
     environment: ${{ matrix.environment }}
     steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Install Power BI Management Module
+      run: |
+        Install-Module -Name MicrosoftPowerBIMgmt -Force -Scope CurrentUser
+        Import-Module MicrosoftPowerBIMgmt
+
     - name: Run PowerShell script
       run: |
         
