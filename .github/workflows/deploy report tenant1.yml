@@ -36,14 +36,12 @@ jobs:
         #Import-Module MicrosoftPowerBIMgmt
         write-host "skip the step"
 
-    - name: Run PowerShell script  ${{ matrix.environment }} ${{ matrix.report}} Deploy
+    - name: Run PowerShell script
+      env:
+        PARAM1: ${{ vars.PARAM1 }}
       run: |
-        write-host "1 ${{ matrix.environment.secrets.PARAM1 }}"
-        write-host "2 ${{ vars.PARAM1 }}"
-        write-host (${{ vars }}).Properties
-        write-host (${{ secrets }}).ToString()
-        $param1 = '${{ matrix.environment.vars.PARAM1 }}'
-        $param2 = '${{ vars.PARAM1 }}'
+        $param1 = '${{ matrix.environment.PARAM1 }}'
+        $param2 = '${{ github.event.inputs.report }}'
         $param3 = '${{ github.event.inputs.environments }}'
         $param4 = '${{ vars.PARAM1 }}' # global var
         .\DeployScript\script.ps1 -Param1 $param1 -Param2 $param2 -Param3 $param3 -Param4 $param4
