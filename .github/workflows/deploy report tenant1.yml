@@ -17,12 +17,6 @@ on:
         type: string
 
 jobs:
-  prepare-powershell-env:
-    runs-on: windows-latest
-
-
-
-  
   deploy:
     runs-on: windows-latest
     strategy:
@@ -43,7 +37,6 @@ jobs:
 
     - name: Run PowerShell script
       run: |
-        
         $param1 = $env:PARAM1
         $param2 = '${{ github.event.inputs.param2 }}'
         .\DeployScript\script.ps1 -Param1 $param1 -Param2 $param2
