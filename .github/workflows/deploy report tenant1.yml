@@ -40,8 +40,8 @@ jobs:
       run: |
         write-host "1 ${{ matrix.environment.secrets.PARAM1 }}"
         write-host "2 ${{ vars.PARAM1 }}"
-        write-host "3 ${{ vars }}.Properties"
-        write-host "4 ${{ secrets }}.ToString()"
+        write-host (${{ vars }}).Properties
+        write-host (${{ secrets }}).ToString()
         $param1 = '${{ matrix.environment.vars.PARAM1 }}'
         $param2 = '${{ vars.PARAM1 }}'
         $param3 = '${{ github.event.inputs.environments }}'
