@@ -27,7 +27,7 @@ jobs:
     - name: Run PowerShell script
       run: |
         Import-Module MicrosoftPowerBIMgmt
-        $param1 = ${{ github.event.inputs.param1 }}
-        $param2 = ${{ github.event.inputs.param2 }}
-        .\script.ps1 -Param1 $param1 -Param2 $param2
+        $param1 = '${{ github.event.inputs.param1 }}'
+        $param2 = '${{ github.event.inputs.param2 }}'
+        .\DeployScript\script.ps1 -Param1 $param1 -Param2 $param2
       shell: pwsh
