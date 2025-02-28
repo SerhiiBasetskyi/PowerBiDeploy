@@ -39,11 +39,11 @@ jobs:
     - name: Run PowerShell script
       env:
         JSON_SECRETS: ${{ toJSON(secrets) }}
-        JSON_DOC: ${{ toJSON(vars) }}
+        JSON_PARAM1: ${{ vars.PARAM1 }}
         JSON_ENV: ${{ toJSON(matrix.environments) }}
         JSON_MATRIX: ${{ toJSON(matrix) }}
       run: |
-        $param1 = $env:JSON_SECRETS
+        $param1 = $env:JSON_PARAM1
         $param2 = $env:JSON_DOC
         $param3 = $env:JSON_ENV
         $param4 = $env:JSON_MATRIX
