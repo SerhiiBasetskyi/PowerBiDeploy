@@ -40,7 +40,7 @@ jobs:
       env:
         PARAM1: ${{ secrets.PARAM1 }}
       run: |
-        $param1 = $env:PARAM1
+        $param1 = '${{ secrets[matrix.environment].PARAM4 }}'
         $param2 = '${{ github.event.inputs.report }}'
         $param3 = '${{ github.event.inputs.environments }}'
         $param4 = '${{ vars.PARAM1 }}' # global var
