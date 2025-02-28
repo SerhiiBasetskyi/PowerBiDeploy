@@ -42,7 +42,7 @@ jobs:
         PARAM1: ${{ vars.PARAM1 }}
       run: |
         write-host " ${{ secrets.PARAM1 }}"
-        write-host " ${{ ${{ vars.PARAM1 }} }}"
+        write-host " ${{ vars.PARAM1 }}"
         $param1 = '${{ vars[matrix.environment.PARAM4 }}'
         $param2 = '${{ github.event.inputs.report }}'
         $param3 = '${{ github.event.inputs.environments }}'
