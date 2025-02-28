@@ -25,7 +25,7 @@ jobs:
       matrix:
         environments: ${{ fromJson(inputs.environments) }}
         
-    environment: ${{ matrix.environment }}
+    environment: ${{ matrix.environments }}
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
@@ -40,7 +40,7 @@ jobs:
       env:
         JSON_SECRETS: ${{ toJSON(secrets) }}
         JSON_DOC: ${{ toJSON(vars) }}
-        JSON_ENV: ${{ toJSON(matrix.environment) }}
+        JSON_ENV: ${{ toJSON(matrix.environments) }}
         JSON_MATRIX: ${{ toJSON(matrix) }}
       run: |
         $param1 = $env:JSON_SECRETS
